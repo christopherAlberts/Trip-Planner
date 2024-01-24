@@ -83,11 +83,11 @@ class App(customtkinter.CTk):
 
         # Search Button
         self.search_button = customtkinter.CTkButton(master=self.frame_right, text="Search", width=90, command=self.search_event)
-        self.search_button.grid(row=0, column=2, sticky="w", padx=(12, 0), pady=12)
+        self.search_button.grid(row=0, column=2, sticky="we", padx=(12, 0), pady=12)
 
         # Toggle button for events bar
         self.toggle_events_bar_btn = customtkinter.CTkButton(master=self.frame_right, text="Toggle Events Bar", command=self.toggle_events_bar)
-        self.toggle_events_bar_btn.grid(row=0, column=3, sticky="w", padx=(12, 0), pady=12)
+        self.toggle_events_bar_btn.grid(row=0, column=3, sticky="we", padx=(12, 0), pady=12)
 
         # Set default values
         self.map_widget.set_address("Berlin")
