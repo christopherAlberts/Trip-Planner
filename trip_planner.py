@@ -13,21 +13,10 @@ class App(customtkinter.CTk):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        # Toggle button for left sidebar
-        self.toggle_left_sidebar_btn = customtkinter.CTkButton(master=self, text="Toggle Left Sidebar",
-                                                               command=self.toggle_left_sidebar)
-        self.toggle_left_sidebar_btn.place(x=10, y=10)
-
         # Right sidebar ("events bar")
         self.frame_right = customtkinter.CTkFrame(master=self, width=150, corner_radius=0)
         self.frame_right.grid(row=0, column=2, sticky="nswe")
         self.frame_right.grid_remove()  # Initially hidden
-
-        # Toggle button for events bar
-        self.toggle_events_bar_btn = customtkinter.CTkButton(master=self, text="Toggle Events Bar",
-                                                             command=self.toggle_events_bar)
-        self.toggle_events_bar_btn.place(x=170, y=10)
-
 
         self.title(App.APP_NAME)
         self.geometry(str(App.WIDTH) + "x" + str(App.HEIGHT))
@@ -56,26 +45,20 @@ class App(customtkinter.CTk):
 
         self.frame_left.grid_rowconfigure(2, weight=1)
 
-        self.button_1 = customtkinter.CTkButton(master=self.frame_left,
-                                                text="Set Marker",
-                                                command=self.set_marker_event)
+        self.button_1 = customtkinter.CTkButton(master=self.frame_left, text="Set Marker", command=self.set_marker_event)
         self.button_1.grid(pady=(20, 0), padx=(20, 20), row=0, column=0)
 
-        self.button_2 = customtkinter.CTkButton(master=self.frame_left,
-                                                text="Clear Markers",
-                                                command=self.clear_marker_event)
+        self.button_2 = customtkinter.CTkButton(master=self.frame_left, text="Clear Markers", command=self.clear_marker_event)
         self.button_2.grid(pady=(20, 0), padx=(20, 20), row=1, column=0)
 
         self.map_label = customtkinter.CTkLabel(self.frame_left, text="Tile Server:", anchor="w")
         self.map_label.grid(row=3, column=0, padx=(20, 20), pady=(20, 0))
-        self.map_option_menu = customtkinter.CTkOptionMenu(self.frame_left, values=["OpenStreetMap", "Google normal", "Google satellite"],
-                                                                       command=self.change_map)
+        self.map_option_menu = customtkinter.CTkOptionMenu(self.frame_left, values=["OpenStreetMap", "Google normal", "Google satellite"], command=self.change_map)
         self.map_option_menu.grid(row=4, column=0, padx=(20, 20), pady=(10, 0))
 
         self.appearance_mode_label = customtkinter.CTkLabel(self.frame_left, text="Appearance Mode:", anchor="w")
         self.appearance_mode_label.grid(row=5, column=0, padx=(20, 20), pady=(20, 0))
-        self.appearance_mode_optionemenu = customtkinter.CTkOptionMenu(self.frame_left, values=["Light", "Dark", "System"],
-                                                                       command=self.change_appearance_mode)
+        self.appearance_mode_optionemenu = customtkinter.CTkOptionMenu(self.frame_left, values=["Light", "Dark", "System"], command=self.change_appearance_mode)
         self.appearance_mode_optionemenu.grid(row=6, column=0, padx=(20, 20), pady=(10, 20))
 
         # ============ frame_right ============
@@ -87,36 +70,33 @@ class App(customtkinter.CTk):
         self.frame_right.grid_columnconfigure(2, weight=1)
 
         self.map_widget = TkinterMapView(self.frame_right, corner_radius=0)
-        self.map_widget.grid(row=1, rowspan=1, column=0, columnspan=3, sticky="nswe", padx=(0, 0), pady=(0, 0))
+        self.map_widget.grid(row=1, rowspan=1, column=0, columnspan=4, sticky="nswe", padx=(0, 0), pady=(0, 0))
 
-        self.entry = customtkinter.CTkEntry(master=self.frame_right,
-                                            placeholder_text="type address")
-        self.entry.grid(row=0, column=0, sticky="we", padx=(12, 0), pady=12)
+        # Toggle button for left sidebar
+        self.toggle_left_sidebar_btn = customtkinter.CTkButton(master=self.frame_right, text="Toggle Left Sidebar", command=self.toggle_left_sidebar)
+        self.toggle_left_sidebar_btn.grid(row=0, column=0, sticky="we", padx=(12, 0), pady=12)
+
+        # Search Field
+        self.entry = customtkinter.CTkEntry(master=self.frame_right, placeholder_text="type address")
+        self.entry.grid(row=0, column=1, sticky="we", padx=(12, 0), pady=12)
         self.entry.bind("<Return>", self.search_event)
 
-        self.button_5 = customtkinter.CTkButton(master=self.frame_right,
-                                                text="Search",
-                                                width=90,
-                                                command=self.search_event)
-        self.button_5.grid(row=0, column=1, sticky="w", padx=(12, 0), pady=12)
+        # Search Button
+        self.search_button = customtkinter.CTkButton(master=self.frame_right, text="Search", width=90, command=self.search_event)
+        self.search_button.grid(row=0, column=2, sticky="w", padx=(12, 0), pady=12)
+
+        # Toggle button for events bar
+        self.toggle_events_bar_btn = customtkinter.CTkButton(master=self.frame_right, text="Toggle Events Bar", command=self.toggle_events_bar)
+        self.toggle_events_bar_btn.grid(row=0, column=3, sticky="w", padx=(12, 0), pady=12)
 
         # Set default values
         self.map_widget.set_address("Berlin")
         self.map_option_menu.set("OpenStreetMap")
         self.appearance_mode_optionemenu.set("Dark")
-        # Toggle button for left sidebar
-        self.toggle_left_sidebar_btn = customtkinter.CTkButton(master=self, text="Toggle Left Sidebar",
-                                                               command=self.toggle_left_sidebar)
-        self.toggle_left_sidebar_btn.place(x=10, y=10)
 
         # Right sidebar ("events bar")
         self.frame_right = customtkinter.CTkFrame(master=self, width=150, corner_radius=0)
         self.frame_right.grid(row=0, column=2, sticky="nswe")
-
-        # Toggle button for events bar
-        self.toggle_events_bar_btn = customtkinter.CTkButton(master=self, text="Toggle Events Bar",
-                                                             command=self.toggle_events_bar)
-        self.toggle_events_bar_btn.place(x=170, y=10)
 
 
     def search_event(self, event=None):
@@ -147,7 +127,6 @@ class App(customtkinter.CTk):
     def start(self):
         self.mainloop()
 
-
     def toggle_left_sidebar(self):
         if self.frame_left.winfo_ismapped():
             self.frame_left.grid_remove()
@@ -158,32 +137,9 @@ class App(customtkinter.CTk):
         if self.frame_right.winfo_ismapped():
             self.frame_right.grid_remove()
         else:
-            self.frame_right.grid(row=0, column=2, sticky="nswe")
+            self.frame_right.grid(row=0, column=3, sticky="nswe")
+
 
 if __name__ == "__main__":
     app = App()
     app.start()
-
-    def toggle_left_sidebar(self):
-        if self.frame_left.winfo_ismapped():
-            self.frame_left.grid_remove()
-        else:
-            self.frame_left.grid()
-
-    def toggle_events_bar(self):
-        if self.frame_right.winfo_ismapped():
-            self.frame_right.grid_remove()
-        else:
-            self.frame_right.grid()
-
-    def toggle_left_sidebar(self):
-        if self.frame_left.winfo_ismapped():
-            self.frame_left.grid_remove()
-        else:
-            self.frame_left.grid(row=0, column=0, sticky="nswe")
-
-    def toggle_events_bar(self):
-        if self.frame_right.winfo_ismapped():
-            self.frame_right.grid_remove()
-        else:
-            self.frame_right.grid(row=0, column=2, sticky="nswe")
