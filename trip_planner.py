@@ -7,7 +7,7 @@ customtkinter.set_default_color_theme("blue")
 class App(customtkinter.CTk):
 
     APP_NAME = "TkinterMapView with CustomTkinter"
-    WIDTH = 800
+    WIDTH = 1000
     HEIGHT = 500
 
     def __init__(self, *args, **kwargs):
@@ -73,7 +73,7 @@ class App(customtkinter.CTk):
         self.map_widget.grid(row=1, rowspan=1, column=0, columnspan=4, sticky="nswe", padx=(0, 0), pady=(0, 0))
 
         # Toggle button for left sidebar
-        self.toggle_left_sidebar_btn = customtkinter.CTkButton(master=self.frame_right, text="Toggle Left Sidebar", command=self.toggle_left_sidebar)
+        self.toggle_left_sidebar_btn = customtkinter.CTkButton(master=self.frame_right, text="Sidebar", command=self.toggle_left_sidebar)
         self.toggle_left_sidebar_btn.grid(row=0, column=0, sticky="we", padx=(12, 0), pady=12)
 
         # Search Field
@@ -86,8 +86,8 @@ class App(customtkinter.CTk):
         self.search_button.grid(row=0, column=2, sticky="we", padx=(12, 0), pady=12)
 
         # Toggle button for events bar
-        self.toggle_events_bar_btn = customtkinter.CTkButton(master=self.frame_right, text="Toggle Events Bar", command=self.toggle_events_bar)
-        self.toggle_events_bar_btn.grid(row=0, column=3, sticky="we", padx=(12, 0), pady=12)
+        self.toggle_events_bar_btn = customtkinter.CTkButton(master=self.frame_right, text="Events", command=self.toggle_events_bar)
+        self.toggle_events_bar_btn.grid(row=0, column=3, sticky="we", padx=(12, 12), pady=12)
 
         # Set default values
         self.map_widget.set_address("Berlin")
